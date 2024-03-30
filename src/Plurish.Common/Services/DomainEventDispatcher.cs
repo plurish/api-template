@@ -1,6 +1,6 @@
-﻿using Plurish.Common.Abstractions.Domain.Events;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using Plurish.Common.Abstractions.Domain.Events;
 
 namespace Plurish.Common.Services;
 

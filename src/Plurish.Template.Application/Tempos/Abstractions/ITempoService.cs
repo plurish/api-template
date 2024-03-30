@@ -1,6 +1,6 @@
-﻿using Plurish.Template.Application.Tempos.Dtos;
+﻿using Plurish.Common.Types.Output;
+using Plurish.Template.Application.Tempos.Dtos;
 using Plurish.Template.Domain.Tempos.Dtos;
-using Plurish.Common.Types.Output;
 
 namespace Plurish.Template.Application.Tempos.Abstractions;
 

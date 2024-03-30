@@ -1,5 +1,5 @@
-﻿using Plurish.Common.Types.Output;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Plurish.Common.Types.Output;
 
 namespace Plurish.Common.Tests.Unit.Types.Output;
 public sealed class ResultTTests

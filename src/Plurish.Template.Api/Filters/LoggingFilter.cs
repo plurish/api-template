@@ -49,4 +49,3 @@ internal sealed class LoggingFilter(ILogger<LoggingFilter> logger) : IAsyncActio
             .FirstOrDefault(h => s_correlationIdHeaderKeys.Contains(h.Key))
             .Value;
 }
-

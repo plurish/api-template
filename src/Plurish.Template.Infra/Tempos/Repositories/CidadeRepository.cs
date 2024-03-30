@@ -1,11 +1,8 @@
-﻿using Plurish.Template.Domain.Tempos.Abstractions;
+﻿using Microsoft.Extensions.Options;
+using Plurish.Template.Domain.Tempos.Abstractions;
 using Plurish.Template.Domain.Tempos.Models;
 using Plurish.Template.Domain.Tempos.Models.ValueObjects;
-
 using Plurish.Template.Infra.Tempos.Dtos;
-
-using Microsoft.Extensions.Options;
-
 using Refit;
 
 namespace Plurish.Template.Infra.Tempos.Repositories;

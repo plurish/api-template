@@ -1,10 +1,10 @@
 using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using Plurish.Common.Types.Output;
 using Plurish.Template.Api.Filters.ResponseMapping;
 using Plurish.Template.Application.Tempos.Abstractions;
 using Plurish.Template.Application.Tempos.Dtos;
 using Plurish.Template.Domain.Tempos.Dtos;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Plurish.Template.Api.Controllers;
 

@@ -1,5 +1,5 @@
-﻿using Plurish.Template.Domain.Tempos.Models.ValueObjects;
-using Plurish.Common.Abstractions.Domain;
+﻿using Plurish.Common.Abstractions.Domain;
+using Plurish.Template.Domain.Tempos.Models.ValueObjects;
 
 namespace Plurish.Template.Domain.Tempos.Models;
 

@@ -1,12 +1,12 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Plurish.Common;
 using Plurish.Template.Api;
 using Plurish.Template.Application;
 using Plurish.Template.Infra;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Presentation.Middleware;
 using Prometheus;
 using Serilog;
-using Plurish.Common;
 
 #pragma warning disable S1199
 

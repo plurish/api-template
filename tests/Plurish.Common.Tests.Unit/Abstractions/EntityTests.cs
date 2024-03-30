@@ -1,10 +1,10 @@
-﻿using Plurish.Common.Abstractions.Domain;
+﻿using Common.UnitTests.Abstractions.Utilities;
+using FluentAssertions;
+using Plurish.Common.Abstractions.Domain;
 using Plurish.Common.Abstractions.Domain.Events;
 using Plurish.Common.Tests.Unit.Abstractions.Utilities;
-using Common.UnitTests.Abstractions.Utilities;
-using FluentAssertions;
-using static Plurish.Common.Tests.Unit.Abstractions.Utilities.Fakes.ValueObject;
 using static Common.UnitTests.Abstractions.Utilities.Fakes.Entity;
+using static Plurish.Common.Tests.Unit.Abstractions.Utilities.Fakes.ValueObject;
 
 namespace Plurish.Common.Tests.Unit.Abstractions;
 

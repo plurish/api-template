@@ -1,6 +1,6 @@
 ﻿namespace Plurish.Template.Domain.Tempos.Dtos;
 
 public sealed record CidadeDto(
-    CoordenadaDto Id, 
+    CoordenadaDto Id,
     string Nome
 );

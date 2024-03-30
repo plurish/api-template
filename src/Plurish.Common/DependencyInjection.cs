@@ -1,12 +1,12 @@
 ﻿using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using Plurish.Common.Abstractions.Domain.Events;
-using Plurish.Common.Configuration;
-using Plurish.Common.Services;
 using MediatR.NotificationPublishers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Plurish.Common.Abstractions.Domain.Events;
+using Plurish.Common.Configuration;
+using Plurish.Common.Services;
 
 namespace Plurish.Common;
 

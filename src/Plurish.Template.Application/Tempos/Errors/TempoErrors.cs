@@ -1,5 +1,5 @@
-﻿using Plurish.Template.Domain.Tempos.Dtos;
-using Plurish.Common.Types.Output;
+﻿using Plurish.Common.Types.Output;
+using Plurish.Template.Domain.Tempos.Dtos;
 
 namespace Plurish.Template.Application.Tempos.Errors;
 

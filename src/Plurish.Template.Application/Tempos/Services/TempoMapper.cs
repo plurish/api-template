@@ -1,7 +1,7 @@
-﻿using Plurish.Template.Domain.Tempos.Dtos;
+﻿using Plurish.Common.Types.Output;
+using Plurish.Template.Domain.Tempos.Dtos;
 using Plurish.Template.Domain.Tempos.Models;
 using Plurish.Template.Domain.Tempos.Models.ValueObjects;
-using Plurish.Common.Types.Output;
 
 namespace Plurish.Template.Application.Tempos.Services;
 

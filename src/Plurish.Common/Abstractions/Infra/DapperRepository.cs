@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Dapper;
-using Plurish.Common.Configuration;
 using Microsoft.Data.SqlClient;
+using Plurish.Common.Configuration;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Retry;

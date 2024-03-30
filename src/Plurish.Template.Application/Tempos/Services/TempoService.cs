@@ -1,13 +1,13 @@
-﻿using Plurish.Template.Application.Tempos.Abstractions;
+﻿using MapsterMapper;
+using Microsoft.Extensions.Logging;
+using Plurish.Common.Abstractions.Domain.Events;
+using Plurish.Common.Types.Output;
+using Plurish.Template.Application.Tempos.Abstractions;
 using Plurish.Template.Application.Tempos.Dtos;
 using Plurish.Template.Application.Tempos.Errors;
 using Plurish.Template.Domain.Tempos.Abstractions;
 using Plurish.Template.Domain.Tempos.Dtos;
 using Plurish.Template.Domain.Tempos.Models;
-using MapsterMapper;
-using Microsoft.Extensions.Logging;
-using Plurish.Common.Abstractions.Domain.Events;
-using Plurish.Common.Types.Output;
 
 namespace Plurish.Template.Application.Tempos.Services;
 
@@ -27,7 +27,10 @@ internal sealed class TempoService(
 
     public async Task<Result<TempoDto?>> BuscarPorCidade(string cidade)
     {
-        if (string.IsNullOrEmpty(cidade)) return TempoErrors.CidadeInvalida;
+        if (string.IsNullOrEmpty(cidade))
+        {
+            return TempoErrors.CidadeInvalida;
+        }
 
         Result<CidadeDto?> cidadeResult = await _cidadeService.BuscarPorNome(cidade);
 

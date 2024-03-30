@@ -1,5 +1,5 @@
-﻿using Plurish.Common.Types.Output;
-using MediatR;
+﻿using MediatR;
+using Plurish.Common.Types.Output;
 
 namespace Plurish.Common.Abstractions;
 
