@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+    api-template:
+        container_name: restapi-api-template
+        image: restapi/api/template
+        build:
+            context: .
+            dockerfile: ./src/Api/Dockerfile
+            args:
+                KEYVAULT_URL: https://kv-restapi-dev.vault.azure.net/
+        ports:
+            - 8080:8080
+            - 8081:8081
+        restart: unless-stopped
+        networks:
+            - restapi
+
+    elasticsearch:
+        container_name: restapi-elastic
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
+        volumes:
+            - elastic-data:/usr/share/elasticsearch/data
+        environment:
+            - cluster.name=restapi-elastic
+            - discovery.type=single-node
+            - xpack.security.enabled=false
+            - xpack.security.enrollment.enabled=false
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ports:
+            - 9200:9200
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+            nofile:
+                soft: 65536
+                hard: 65536
+        deploy:
+            restart_policy:
+                condition: on-failure
+                delay: 10s
+                max_attempts: 3
+                window: 120s
+        networks:
+            - restapi
+
+    kibana:
+        container_name: restapi-kibana
+        image: docker.elastic.co/kibana/kibana:8.12.2
+        volumes:
+            - kibana-data:/usr/share/elasticsearch/data
+        restart: unless-stopped
+        ports:
+            - 5601:5601
+        environment:
+            ELASTICSEARCH_URL: http://elasticsearch:9200
+            ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+            xpack.fleet.agents.tlsCheckDisabled: true
+        depends_on:
+            - elasticsearch
+        networks:
+            - restapi
+
+    prometheus:
+        container_name: restapi-prometheus
+        image: prom/prometheus:v2.50.1
+        volumes:
+            - ../prometheus.yaml:/etc/prometheus/prometheus.yml
+            - prometheus-data:/prometheus
+        depends_on:     
+            - api-template
+        ports:
+            - 9090:9090
+        networks:
+            - restapi
+
+    # db-log:
+    #     container_name: restapi-db-log
+    #     image: mcr.microsoft.com/mssql/server:2022-latest
+    #     user: root
+    #     environment:
+    #         ACCEPT_EULA: Y
+    #         MSSQL_SA_PASSWORD: sqlserver2024!
+    #     volumes:
+    #         - log:/var/opt/mssql/data
+    #     ports:
+    #         - 1433:1433
+    #     networks:
+    #         - restapi
+
+volumes:
+    elastic-data:
+        name: restapi-elastic
+    kibana-data:
+        name: restapi-kibana
+    prometheus-data:
+        name: restapi-prometheus
+
+networks:
+    restapi:
+        name: restapi
+        driver: bridge
