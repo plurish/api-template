@@ -2,27 +2,27 @@ version: '3.8'
 
 services:
     api-template:
-        container_name: restapi-api-template
-        image: restapi/api/template
+        container_name: plurish-api-template
+        image: plurish/api/template
         build:
             context: .
             dockerfile: ./src/Api/Dockerfile
             args:
-                KEYVAULT_URL: https://kv-restapi-dev.vault.azure.net/
+                KEYVAULT_URL: https://kv-plurish-dev.vault.azure.net/
         ports:
             - 8080:8080
             - 8081:8081
         restart: unless-stopped
         networks:
-            - restapi
+            - plurish
 
     elasticsearch:
-        container_name: restapi-elastic
+        container_name: plurish-elastic
         image: docker.elastic.co/elasticsearch/elasticsearch:8.12.2
         volumes:
             - elastic-data:/usr/share/elasticsearch/data
         environment:
-            - cluster.name=restapi-elastic
+            - cluster.name=plurish-elastic
             - discovery.type=single-node
             - xpack.security.enabled=false
             - xpack.security.enrollment.enabled=false
@@ -44,10 +44,10 @@ services:
                 max_attempts: 3
                 window: 120s
         networks:
-            - restapi
+            - plurish
 
     kibana:
-        container_name: restapi-kibana
+        container_name: plurish-kibana
         image: docker.elastic.co/kibana/kibana:8.12.2
         volumes:
             - kibana-data:/usr/share/elasticsearch/data
@@ -61,10 +61,10 @@ services:
         depends_on:
             - elasticsearch
         networks:
-            - restapi
+            - plurish
 
     prometheus:
-        container_name: restapi-prometheus
+        container_name: plurish-prometheus
         image: prom/prometheus:v2.50.1
         volumes:
             - ../prometheus.yaml:/etc/prometheus/prometheus.yml
@@ -74,10 +74,10 @@ services:
         ports:
             - 9090:9090
         networks:
-            - restapi
+            - plurish
 
     # db-log:
-    #     container_name: restapi-db-log
+    #     container_name: plurish-db-log
     #     image: mcr.microsoft.com/mssql/server:2022-latest
     #     user: root
     #     environment:
@@ -88,17 +88,17 @@ services:
     #     ports:
     #         - 1433:1433
     #     networks:
-    #         - restapi
+    #         - plurish
 
 volumes:
     elastic-data:
-        name: restapi-elastic
+        name: plurish-elastic
     kibana-data:
-        name: restapi-kibana
+        name: plurish-kibana
     prometheus-data:
-        name: restapi-prometheus
+        name: plurish-prometheus
 
 networks:
-    restapi:
-        name: restapi
+    plurish:
+        name: plurish
         driver: bridge

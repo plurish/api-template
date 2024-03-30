@@ -1,12 +1,12 @@
-# RestApi.Template
+# Plurish.Template
 Esta é uma template, que pode ser usada como base para REST APIs potencialmente complexas e monstruosas.
 
 ## Como testar
 
 ```bash
-git clone https://github.com/gustavenrique/RestApi.Template.git
+git clone https://github.com/plurish/api-template.git
 
-dotnet run --project RestApi.Template/src/RestApi.Template.Api/RestApi.Template.Api.csproj
+dotnet run --project api-template/src/Plurish.Template.Api/Plurish.Template.Api.csproj
 
 # Abrir http://localhost:5150/docs
 ```
@@ -45,7 +45,7 @@ Vale mencionar que o Client, representando um Service Principal, por exemplo, pr
 # Health check
 O health check deve verificar a disponibilidade de todos os serviços externos usados pela API,
 desde bancos e APIs, até serviços de service bus. Portanto, sempre que fizermos uma adição/exclusão de serviços externos consumidos,
-também deve ser atualizada a configuração de health check, localizada em `src/RestApi.Template.Api/DependencyInjection.cs`, no método `AddHealthChecking`.
+também deve ser atualizada a configuração de health check, localizada em `src/Plurish.Template.Api/DependencyInjection.cs`, no método `AddHealthChecking`.
 
 O endpoint que expõe os dados de health check é o `/_health`. Outrossim, vale ressaltar que o mesmo pode ser consumido através da UI
 encontrada em `/dashboard` (apenas existente fora do stage de Production).
@@ -89,8 +89,8 @@ Expõe a aplicação para agentes externos. Nesse caso, através de endpoints HT
 
 ```
 📂---src
-|   📂---RestApi.Template.Api
-|   |   |   RestApi.Template.Api.csproj
+|   📂---Plurish.Template.Api
+|   |   |   Plurish.Template.Api.csproj
 |   |   |   DependencyInjection.cs
 |   |   |   Dockerfile
 |   |   |   Program.cs
@@ -104,8 +104,8 @@ Expõe a aplicação para agentes externos. Nesse caso, através de endpoints HT
 A camada de aplicação deve orquestrar os domain models e, eventualmente, fazer uso dos domain services. Desse modo, ela é responsável 
 majoritariamente por assuntos de aplicação, como comunicação com agentes externos através de abstrações, mas também pode acabar contendo uma ou outra lógica de negócio.
 ```
-|   📂---RestApi.Template.Application
-|   |   |   RestApi.Template.Application.csproj
+|   📂---Plurish.Template.Application
+|   |   |   Plurish.Template.Application.csproj
 |   |   |   DependencyInjection.cs
 |   |   |   Settings.cs
 |   |   📂---Common
@@ -122,8 +122,8 @@ majoritariamente por assuntos de aplicação, como comunicação com agentes ext
 ## Domain
 Responsável por concentrar a maioria das lógicas de negócio, dentro das domain models e domain services
 ```
-|   📂---RestApi.Template.Domain
-|   |   |   RestApi.Template.Domain.csproj
+|   📂---Plurish.Template.Domain
+|   |   |   Plurish.Template.Domain.csproj
 |   |   📂---Common
 |   |   📂---Foo
 |   |       📂---Abstractions
@@ -139,9 +139,9 @@ Responsável por concentrar a maioria das lógicas de negócio, dentro das domai
 ## Infrastructure/Persistence/DataAccess
 Implementa o consumo de serviços externos
 ```
-|   📂---RestApi.Template.Infra
+|   📂---Plurish.Template.Infra
 |   |   |   DependencyInjection.cs
-|   |   |   RestApi.Template.Infra.csproj
+|   |   |   Plurish.Template.Infra.csproj
 |   |   |   Settings.cs
 |   |   📂---Common     
 |   |   📂---Foo
@@ -153,10 +153,10 @@ Implementa o consumo de serviços externos
 |   |               BazRepository.cs
 ```
 
-## RestApi.Common
+## Plurish.Common
 Representa recursos que podem ser reutilizados entre diferentes projetos. Inclusive, idealmente, esse projeto deveria ser extraído e transformado num NuGet package privado.
 
-Caso seja necessário criar uma layer com recursos compartilhados entre a própria REST API, o nome poderia ser `RestApi.Template.Common`, para seguir a convenção de assembly naming.
+Caso seja necessário criar uma layer com recursos compartilhados entre a própria REST API, o nome poderia ser `Plurish.Template.Common`, para seguir a convenção de assembly naming.
 
 ## Tests
 - Os testes devem ser separados em uma pasta além da `src\`
@@ -164,13 +164,13 @@ Caso seja necessário criar uma layer com recursos compartilhados entre a própr
   
 ```
 📂---tests
-    📂---RestApi.Template.Api.Tests.Integration
-    📂---RestApi.Template.Application.Tests.Subcutaneous
-    📂---RestApi.Template.Application.Tests.Unit 
-    📂---RestApi.Template.Domain.Tests.Unit
-    📂---RestApi.Common.Tests.Unit
+    📂---Plurish.Template.Api.Tests.Integration
+    📂---Plurish.Template.Application.Tests.Subcutaneous
+    📂---Plurish.Template.Application.Tests.Unit 
+    📂---Plurish.Template.Domain.Tests.Unit
+    📂---Plurish.Common.Tests.Unit
         |   GlobalUsings.cs
-        |   RestApi.Common.Tests.Unit.csproj
+        |   Plurish.Common.Tests.Unit.csproj
         📂---Abstractions
         |   |   EntityTests.cs
         |   |   ValueObjectTests.cs

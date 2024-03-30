@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Plurish.Common\Plurish.Common.csproj" />
+  </ItemGroup>
+
+</Project>
