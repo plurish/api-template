@@ -27,7 +27,7 @@ public static class DependencyInjection
                 out Settings.Api api,
                 out Settings.Database db
             )
-            .AddHealthChecking(api)
+            .AddHealthChecking(api, db)
             .AddApiClients(api)
             .AddRepositories()
             .AddMappers();
@@ -40,8 +40,8 @@ public static class DependencyInjection
     )
     {
         services
-            .Configure<Settings.Api>(config.GetSection(nameof(Settings.Api)))
-            .Configure<Settings.Database>(config.GetSection(nameof(Settings.Database)));
+            .Configure<Settings.Api>(config.GetSection("Api"))
+            .Configure<Settings.Database>(config.GetSection("Database"));
 
         ServiceProvider provider = services.BuildServiceProvider();
 
@@ -53,10 +53,17 @@ public static class DependencyInjection
 
     private static IServiceCollection AddHealthChecking(
         this IServiceCollection services,
-        Settings.Api apiSettings
+        Settings.Api apiSettings,
+        Settings.Database dbSettings
     )
     {
         services.AddHealthChecks()
+            .AddSqlServer(
+                name: "Db-Xpto",
+                connectionString: dbSettings.Xpto.ConnectionString,
+                failureStatus: HealthStatus.Unhealthy,
+                tags: ["db", "mssql"]
+            )
             .AddElasticsearch(
                 elasticsearchUri: apiSettings.Elasticsearch.Url,
                 name: "Elasticsearch",

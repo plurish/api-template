@@ -2,7 +2,7 @@
 
 namespace Plurish.Template.Domain.Tempos.Dtos;
 
-public record TempoDto(
+public sealed record TempoDto(
     int Id,
     string Descricao,
     TemperaturaDto Temperatura,

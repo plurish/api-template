@@ -54,21 +54,14 @@ internal sealed class TempoService(
 
     public async Task<Result> DiminuirTemperatura(DiminuirTemperaturaDto input)
     {
-        Result<TempoDto?> tempoDtoResult = await BuscarPorCidade(input.Cidade);
+        Result<TempoDto?> tempoDto = await BuscarPorCidade(input.Cidade);
 
-        if (!tempoDtoResult.HasValue)
+        if (!tempoDto.HasValue)
         {
-            return new(tempoDtoResult);
+            return new(tempoDto);
         }
 
-        Result<Tempo?> tempoResult = tempoDtoResult.Value!.ParaDomain();
-
-        if (tempoResult.IsFailure)
-        {
-            return new(tempoResult);
-        }
-
-        Tempo tempo = tempoResult.Value!;
+        Tempo tempo = tempoDto.Value!.ParaDomain();
 
         Result result = tempo.DiminuirTemperatura(input.CelsiusDiminuidos);
 

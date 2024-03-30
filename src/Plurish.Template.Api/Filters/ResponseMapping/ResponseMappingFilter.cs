@@ -8,20 +8,20 @@ namespace Plurish.Template.Api.Filters.ResponseMapping;
 /// <summary>
 /// Filters responsável por converter um Result para um Response
 /// </summary>
-internal sealed class ResponseMappingFilter(IMapper mapper) : IActionFilter
+internal sealed class ResponseMappingFilter(IMapper mapper) : IAsyncActionFilter
 {
     readonly IMapper _mapper = mapper;
 
-    public void OnActionExecuting(ActionExecutingContext context) { }
-
-    public void OnActionExecuted(ActionExecutedContext context)
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        if (context.Exception is not null)
+        ActionExecutedContext result = await next();
+
+        if (result.Exception is not null)
         {
             return;
         }
 
-        var response = context.Result as ObjectResult;
+        var response = result.Result as ObjectResult;
 
         object? resultObject = response?.Value;
 
@@ -38,6 +38,7 @@ internal sealed class ResponseMappingFilter(IMapper mapper) : IActionFilter
         }
 
         response.Value = _mapper.Map<Response<object>>(resultObject);
+        response.DeclaredType = typeof(Response<object>);
     }
 
     private static int DeterminarStatusCode(Result res) =>
