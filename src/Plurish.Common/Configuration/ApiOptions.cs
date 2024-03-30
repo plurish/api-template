@@ -20,5 +20,5 @@ public sealed class ApiOptions
     /// </summary>
     public required int Timeout { get; init; }
 
-    public required ResilienceOptions Resilience { get; init; }
+    public ResilienceOptions Resilience { get; init; } = default!;
 }

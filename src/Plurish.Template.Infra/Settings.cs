@@ -13,7 +13,6 @@ public static class Settings
     public sealed class Database
     {
         public required SqlOptions Xpto { get; init; }
-        public required SqlOptions Log { get; init; }
     }
 
     /// <summary>

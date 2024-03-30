@@ -3,11 +3,11 @@ using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Presentation.Middleware;
 using Plurish.Common.Configuration;
 using Plurish.Common.Types.Output;
 using Plurish.Template.Api.Filters;
 using Plurish.Template.Api.Filters.ResponseMapping;
+using Presentation.Middleware;
 
 namespace Plurish.Template.Api;
 
@@ -42,7 +42,7 @@ internal static class DependencyInjection
     )
     {
         services
-            .Configure<AuthOptions>(configuration.GetSection(nameof(AuthOptions)));
+            .Configure<AuthOptions>(configuration.GetSection("Auth"));
 
         authSettings = services
             .BuildServiceProvider()

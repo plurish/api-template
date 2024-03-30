@@ -4,14 +4,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
-using Polly;
-using Polly.Contrib.WaitAndRetry;
-using Prometheus;
-using Refit;
 using Plurish.Common.Configuration;
 using Plurish.Template.Domain.Tempos.Abstractions;
 using Plurish.Template.Infra.Tempos;
 using Plurish.Template.Infra.Tempos.Repositories;
+using Polly;
+using Polly.Contrib.WaitAndRetry;
+using Prometheus;
+using Refit;
 
 namespace Plurish.Template.Infra;
 
@@ -27,7 +27,7 @@ public static class DependencyInjection
                 out Settings.Api api,
                 out Settings.Database db
             )
-            .AddHealthChecking(db, api)
+            .AddHealthChecking(api)
             .AddApiClients(api)
             .AddRepositories()
             .AddMappers();
@@ -53,17 +53,10 @@ public static class DependencyInjection
 
     private static IServiceCollection AddHealthChecking(
         this IServiceCollection services,
-        Settings.Database dbSettings,
         Settings.Api apiSettings
     )
     {
         services.AddHealthChecks()
-            .AddSqlServer(
-                name: "DB-Log",
-                connectionString: dbSettings.Log.ConnectionString,
-                failureStatus: HealthStatus.Degraded,
-                tags: ["db", "mssql", "log"]
-            )
             .AddElasticsearch(
                 elasticsearchUri: apiSettings.Elasticsearch.Url,
                 name: "Elasticsearch",
